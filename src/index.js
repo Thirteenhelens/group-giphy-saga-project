@@ -23,7 +23,26 @@ const gifReducer = (state = [], action) => {
     }
 } //end gifReducer
 
+const searchGifReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SEARCH_FOR_GIF':
+            return action.payload
+        default:
+            return state
+    }
+} //end searchGifReducer
 
+function* fetchSearchGif() {
+    try {
+        const response = yield axios.get('/api/search');
+        yield put({
+            type: 'SEARCH_FOR_GIF',
+            search:  response.data
+        })
+    } catch (err) {
+        console.log('Err searching ->', err);
+    }
+} //end fetchSearchGif
 
 
 //Fetch the gifs from the Fav database
@@ -32,7 +51,7 @@ function* fetchFavGif() {
     try {
         const response = yield axios.get('/api/favorite');
         //connect the response.data to the gifReducer
-        yield put ({
+        yield put({
             type: 'SET_GIF',
             payload: response.data
         })
@@ -45,51 +64,52 @@ function* fetchFavGif() {
 
 
 //Post the gif to the fav DB
-function* postGif() {
+function* postGif(action) {
 
     try {
+        axios.post('/api/favorite',
+            action.payload)
+        yield put({ type: 'SET_GIF' })
 
     } catch (error) {
         console.log('ERROR IN POST', error);
         yield put({ type: 'POST_ERROR' })
     }
-
-
 }//post gif
 
 
 //change or add the category on the gif
-function* putCategoryGif() {
+function* putCategoryGif(action) {
 
     try {
+        axios.put(`api/favorite/${action.payload}`)
+        yield put({ type: 'SET_GIF' })
 
     } catch (error) {
         console.log('ERROR IN PUT', error);
         yield put({ type: 'PUT_ERROR' })
     }
-
-
 }//end putGif
 
 
 //remove the gif from the fav DB
-function* deleteGif() {
+function* deleteGif(action) {
 
     try {
-
+        axios.delete(`api/favorite/${action.payload}`)
+        yield put({ type: 'SET_GIF' })
     } catch (error) {
         console.log('ERROR IN DELETE', error);
         yield put({ type: 'DELETE_ERROR' })
     }
-
-
 }//end deleteGif
 
 function* rootSaga() {
-    yield takeEvery('FETCH_GIF', fetchFavGif);
     yield takeEvery('ADD_GIF', postGif);
-    yield takeEvery('CHANGE_CATEGORY', putCategoryGif);
     yield takeEvery('DELETE_GIF', deleteGif);
+    yield takeEvery('FETCH_GIF', fetchFavGif);
+    yield takeEvery('SEARCH_GIF', fetchSearchGif);
+    yield takeEvery('CHANGE_CATEGORY', putCategoryGif);
 }
 
 const sagaMiddleware = createSagaMiddleware();
