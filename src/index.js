@@ -35,10 +35,10 @@ const searchGifReducer = (state = [], action) => {
 
 function* fetchSearchGif(action) {
     try {
-        const response = yield axios.get('/api/search', {search: action.payload});
+        const response = yield axios.get('/api/search', { search: action.payload });
         yield put({
             type: 'SEARCH_FOR_GIF',
-            payload:  response.data
+            payload: response.data
         })
     } catch (err) {
         console.log('Err searching ->', err);
@@ -65,44 +65,44 @@ function* fetchFavGif() {
 
 
 //Post the gif to the fav DB
-function* postGif() {
+function* postGif(action) {
 
     try {
+        axios.post('/api/favorite',
+            action.payload)
+        yield put({ type: 'SET_GIF' })
 
     } catch (error) {
         console.log('ERROR IN POST', error);
         yield put({ type: 'POST_ERROR' })
     }
-
-
 }//post gif
 
 
 //change or add the category on the gif
-function* putCategoryGif() {
+function* putCategoryGif(action) {
 
     try {
+        axios.put(`api/favorite/${action.payload}`)
+        yield put({ type: 'SET_GIF' })
 
     } catch (error) {
         console.log('ERROR IN PUT', error);
         yield put({ type: 'PUT_ERROR' })
     }
-
-
 }//end putGif
 
 
 //remove the gif from the fav DB
-function* deleteGif() {
+function* deleteGif(action) {
 
     try {
-
+        axios.delete(`api/favorite/${action.payload}`)
+        yield put({ type: 'SET_GIF' })
     } catch (error) {
         console.log('ERROR IN DELETE', error);
         yield put({ type: 'DELETE_ERROR' })
     }
-
-
 }//end deleteGif
 
 function* rootSaga() {
