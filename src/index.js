@@ -23,6 +23,10 @@ const gifReducer = (state = [], action) => {
     }
 } //end gifReducer
 
+const placeHolder= {
+    url: "https://giphy.com/embed/cHMwfvqXeBszH2TohN/video"
+}
+
 const searchGifReducer = (state = [], action) => {
     switch (action.type) {
         case 'SEARCH_FOR_GIF':
@@ -38,7 +42,7 @@ function* fetchSearchGif(action) {
         const response = yield axios.get('/api/search', { search: action.payload });
         yield put({
             type: 'SEARCH_FOR_GIF',
-            payload: response.data
+            payload: response.data.data
         })
     } catch (err) {
         console.log('Err searching ->', err);
