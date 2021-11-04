@@ -23,6 +23,27 @@ const gifReducer = (state = [], action) => {
     }
 } //end gifReducer
 
+const searchGifReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SEARCH_FOR_GIF':
+            return action.payload
+        default:
+            return state
+    }
+} //end searchGifReducer
+
+function* fetchSearchGif() {
+    try {
+        const response = yield axios.get('/api/search');
+        yield put({
+            type: 'SEARCH_FOR_GIF',
+            search:  response.data
+        })
+    } catch (err) {
+        console.log('Err searching ->', err);
+    }
+} //end fetchSearchGif
+
 
 //Fetch the gifs from the Fav database
 function* fetchFavGif() {
@@ -84,10 +105,11 @@ function* deleteGif(action) {
 }//end deleteGif
 
 function* rootSaga() {
-    yield takeEvery('FETCH_GIF', fetchFavGif);
     yield takeEvery('ADD_GIF', postGif);
-    yield takeEvery('CHANGE_CATEGORY', putCategoryGif);
     yield takeEvery('DELETE_GIF', deleteGif);
+    yield takeEvery('FETCH_GIF', fetchFavGif);
+    yield takeEvery('SEARCH_GIF', fetchSearchGif);
+    yield takeEvery('CHANGE_CATEGORY', putCategoryGif);
 }
 
 const sagaMiddleware = createSagaMiddleware();
