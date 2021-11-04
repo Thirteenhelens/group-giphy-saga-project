@@ -33,12 +33,12 @@ const searchGifReducer = (state = [], action) => {
 } //end searchGifReducer
 
 
-function* fetchSearchGif() {
+function* fetchSearchGif(action) {
     try {
-        const response = yield axios.get('/api/search');
+        const response = yield axios.get('/api/search', {search: action.payload});
         yield put({
             type: 'SEARCH_FOR_GIF',
-            search:  response.data
+            payload:  response.data
         })
     } catch (err) {
         console.log('Err searching ->', err);
@@ -119,6 +119,7 @@ const sagaMiddleware = createSagaMiddleware();
 const storeInstance = createStore(
     combineReducers({
         gifReducer,
+        searchGifReducer
     }),
     applyMiddleware(sagaMiddleware, logger),
 );
