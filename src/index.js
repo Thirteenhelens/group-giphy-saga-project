@@ -28,14 +28,31 @@ const gifReducer = (state = [], action) => {
 
 //Fetch the gifs from the Fav database
 function* fetchFavGif() {
-
-
+    //get data from DB
+    try {
+        const response = yield axios.get('/api/favorite');
+        //connect the response.data to the gifReducer
+        yield put ({
+            type: 'SET_GIF',
+            payload: response.data
+        })
+        //catch your errors!
+    } catch (error) {
+        console.log('ERROR IN GET', error);
+        yield put({ type: 'GET_ERROR' })
+    }
 }//end fetchGif
 
 
 //Post the gif to the fav DB
 function* postGif() {
 
+    try {
+
+    } catch (error) {
+        console.log('ERROR IN POST', error);
+        yield put({ type: 'POST_ERROR' })
+    }
 
 
 }//post gif
@@ -44,6 +61,12 @@ function* postGif() {
 //change or add the category on the gif
 function* putCategoryGif() {
 
+    try {
+
+    } catch (error) {
+        console.log('ERROR IN PUT', error);
+        yield put({ type: 'PUT_ERROR' })
+    }
 
 
 }//end putGif
@@ -52,6 +75,12 @@ function* putCategoryGif() {
 //remove the gif from the fav DB
 function* deleteGif() {
 
+    try {
+
+    } catch (error) {
+        console.log('ERROR IN DELETE', error);
+        yield put({ type: 'DELETE_ERROR' })
+    }
 
 
 }//end deleteGif
