@@ -23,6 +23,10 @@ const gifReducer = (state = [], action) => {
     }
 } //end gifReducer
 
+const placeHolder= {
+    url: "https://giphy.com/embed/cHMwfvqXeBszH2TohN/video"
+}
+
 const searchGifReducer = (state = [], action) => {
     switch (action.type) {
         case 'SEARCH_FOR_GIF':
@@ -119,6 +123,7 @@ const sagaMiddleware = createSagaMiddleware();
 const storeInstance = createStore(
     combineReducers({
         gifReducer,
+        searchGifReducer
     }),
     applyMiddleware(sagaMiddleware, logger),
 );

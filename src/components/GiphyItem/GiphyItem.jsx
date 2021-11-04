@@ -18,10 +18,12 @@ function GiphyItem({ gif }) {
       }
     })
   }//end handSubmitFav
+ 
+  console.log(gif)
 
   return (
     <div className="gifItem">
-      <img src={gif.images.fixed_height.url} />
+      {/* <img src={gif.images.fixed_height.url} /> */}
       <button onClick={handleSubmitFav}>Save</button>
     </div>
   );
