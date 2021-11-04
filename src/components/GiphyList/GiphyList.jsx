@@ -1,7 +1,8 @@
 function GiphyList() {
   return (
     <>
-      <p>GiphyList</p>
+      <h2>GiphyList</h2>
+      
     </>
   );
 }
