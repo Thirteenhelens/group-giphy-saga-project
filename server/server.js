@@ -1,3 +1,4 @@
+require(`dotenv`).config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -6,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Route includes
+const searchRouter = require('./routes/search.router');
 const favoriteRouter = require('./routes/favorite.router');
 const categoryRouter = require('./routes/category.router');
 
@@ -17,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('build'));
 
 // Routes
+app.use('/api/search', searchRouter);
 app.use('/api/favorite', favoriteRouter);
 app.use('/api/category', categoryRouter);
 

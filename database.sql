@@ -12,3 +12,16 @@ CREATE TABLE "category" (
 -- Default categories. You may change them :)
 INSERT INTO "category" ("name")
 VALUES ('funny'), ('cohort'), ('cartoon'), ('nsfw'), ('meme');
+
+
+-- Favroites Table
+CREATE TABLE "favorites" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(100) NOT NULL,
+    "url" TEXT NOT NULL,
+    "category_id" INT REFERENCES "category"
+);
+
+-- Default Values
+INSERT INTO "favorites" ("name", "url")
+VALUES ('Bill Is Funny', 'https://giphy.com/gifs/politics-bill-clinton-democrat-xrWNh6MHjO7HW');
