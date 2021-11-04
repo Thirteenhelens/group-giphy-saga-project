@@ -42,7 +42,7 @@ function* fetchSearchGif(action) {
         const response = yield axios.get('/api/search', { search: action.payload });
         yield put({
             type: 'SEARCH_FOR_GIF',
-            payload: response.data
+            payload: response.data.data
         })
     } catch (err) {
         console.log('Err searching ->', err);
