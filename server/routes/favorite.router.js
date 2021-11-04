@@ -7,14 +7,14 @@ const router = express.Router();
 router.get('/', (req, res) => {
   console.log(`/favorite GET`);
 
-  let queryText = `SELECT * FROM "SONGS";`;
+  let queryText = `SELECT * FROM "favorites";`;
 
   pool.query(queryText)
     .then((result) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log(`ERROR! /favorite GET`);
+      console.log(`ERROR! /favorite GET`, err);
       res.sendStatus(500);
     })
 });
@@ -25,19 +25,19 @@ router.post('/', (req, res) => {
   const newGif = req.body;
 
   let queryText = `
-    INSERT INTO "favorites" ("name", "url")
+    INSERT INTO "favorites" ("name", "image_url")
     VALUES ($1, $2);
   `;
-  let values = [newGif.name, newGif.image_url]
+  let values = [newGif.name, newGif.image_url];
 
 
   pool.query(queryText, values)
-    .then((res) => {
+    .then((result) => {
       console.log(`/favorites POST request SUCCESS!`);
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.log(`/favorites POST request ERROR!`);
+      console.log(`/favorites POST request ERROR!`, err);
       res.sendStatus(500);
     })
 });
