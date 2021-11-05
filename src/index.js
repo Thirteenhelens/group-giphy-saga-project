@@ -13,21 +13,19 @@ import axios from 'axios'
 //reducer to hold the gifs in redux state,
 //not sure yet what we are going to need returned, or if we need other action.payloads
 //add as needed
-const gifReducer = (state = [{name: ``, image_url: ``}], action) => {
+const gifReducer = (state = [{ name: ``, image_url: `` }], action) => {
     switch (action.type) {
         case 'SET_GIF':
             console.log(`this is payload`, action.payload);
-            return action.payload
+            return [...action.payload]
 
         default:
             return state
     }
 } //end gifReducer
 
-const placeHolder = {
-    url: "https://giphy.com/embed/cHMwfvqXeBszH2TohN/video"
-}
 
+//reducer for the search category on home page
 const searchGifReducer = (state = [], action) => {
     switch (action.type) {
         case 'SEARCH_FOR_GIF':
@@ -38,6 +36,7 @@ const searchGifReducer = (state = [], action) => {
 } //end searchGifReducer
 
 
+//GET for the search category on the page
 function* fetchSearchGif(action) {
     try {
         let search = action.payload
