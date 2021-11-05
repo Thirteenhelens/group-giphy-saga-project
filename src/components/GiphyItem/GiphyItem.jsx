@@ -13,8 +13,8 @@ function GiphyItem({ gif }) {
     dispatch({
       type: 'ADD_GIF',
       payload: {
-        name: gif.name,
-        url: gif.url
+        name: gif.title,
+        image_url: gif.images.fixed_height.url
       }
     })
   }//end handSubmitFav
@@ -23,6 +23,7 @@ function GiphyItem({ gif }) {
 
   return (
     <div className="gifItem">
+      <h4>{gif.title}</h4>
       <img src={gif.images.fixed_height.url} />
       <button onClick={handleSubmitFav}>Save</button>
     </div>
