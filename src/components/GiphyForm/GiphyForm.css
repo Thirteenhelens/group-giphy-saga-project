@@ -1,0 +1,11 @@
+.formContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.favLink{
+    padding: 5px;
+    color: black;
+    background-color: darkslateblue;
+}

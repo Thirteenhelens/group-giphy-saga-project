@@ -1,0 +1,24 @@
+h1 {
+  text-align: center;
+}
+
+.blue {
+  color: blue;
+}
+
+.red {
+  color: red;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.green {
+  color: green;
+}
+
+.searchHeaderContainer {
+  padding: 50px;
+  background-color: lightsteelblue;
+}
