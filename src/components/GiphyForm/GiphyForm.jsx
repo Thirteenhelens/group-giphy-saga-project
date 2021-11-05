@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import "./GiphyForm.css";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Paper from "@mui/material/Paper";
 import { useDispatch } from "react-redux";
-
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 function GiphyForm() {
   const dispatch = useDispatch();
@@ -17,18 +22,34 @@ function GiphyForm() {
     setSearchGif("");
   };
 
- 
   return (
     <div>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchGif}
-          onChange={handleChange}
-        />
-        <button type="submit">Search</button>
-      </form>
+      <div className="formContainer">
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: 400,
+          }}
+          onSubmit={handleSearch}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search Giphy"
+            inputProps={{ "aria-label": "Search Giphy" }}
+            value={searchGif}
+            onChange={handleChange}
+          />
+          <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+            <SearchRoundedIcon />
+          </IconButton>
+        </Paper>
+      </div>
+      <Link className="favLink" to="/favorites">
+        Favorites
+      </Link>
     </div>
   );
 }

@@ -1,27 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
-import FavoriteItem from '../FavoriteItem/FavoriteItem';
+import "./FavoriteList.css";
+import { useSelector } from "react-redux";
+import FavoriteItem from "../FavoriteItem/FavoriteItem";
 
 function FavoriteList() {
-
-
-
-
-  const gifs = useSelector(store => store.gifReducer)
+  const gifs = useSelector((store) => store.gifReducer);
 
   console.log(gifs);
 
   return (
-    <>
-      <p>FavoriteList</p>
-      <ul>
-        {gifs?.map((gif) => (
-          <FavoriteItem
-            key={gif.id}
-            gif={gif}
-          />
-        ))}
-      </ul>
-    </>
+    <div className="favListContainer">
+      {gifs?.map((gif) => (
+        <FavoriteItem key={gif.id} gif={gif} />
+      ))}
+    </div>
   );
 }
 
