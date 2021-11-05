@@ -37,16 +37,18 @@ function FavoriteItem({ gif }) {
             {gif ?
                 <li>
                     <img src={gif?.image_url} />
-
+                    <div>
                     <select value={categoryInput} onChange={handleChange}>
-                        <option value={1}>Funny</option>
+                        <option value=''>Choose a category</option>
+                        <option value={1} >Funny</option>
                         <option value={2}>Cohort</option>
                         <option value={3}>Cartoon</option>
                         <option value={4}>*Nsfw*</option>
                         <option value={5}>Meme</option>
                     </select>
                     <button onClick={() => dispatch({ type: 'CHANGE_CATEGORY', payload: { id: gif.id, categoryId: Number(categoryInput) } })}>Submit</button>
-                    <button onClick={handleDelete}>Delete Gif</button>
+                        <button onClick={handleDelete}>Delete Gif</button>
+                    </div>
                 </li>
                 : ``}
 

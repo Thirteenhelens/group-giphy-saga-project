@@ -79,7 +79,7 @@ function* postGif(action) {
             action.payload)
         yield put({
             type: 'SET_GIF',
-            payload: action.payload
+            payload: [...action.payload]
         })
 
     } catch (error) {
@@ -95,7 +95,7 @@ function* putCategoryGif(action) {
     try {
         axios.put(`api/favorite/${action.payload.id}`,
             { category_id: action.payload.categoryId })
-        yield put({ type: 'SET_GIF' })
+        yield put({ type: 'FETCH_GIF' })
 
     } catch (error) {
         console.log('ERROR IN PUT', error);
