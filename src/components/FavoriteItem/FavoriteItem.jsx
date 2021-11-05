@@ -1,24 +1,25 @@
 import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+
 function FavoriteItem({ gif }) {
+
+    useEffect(() => {
+        fetchGif();
+    }, []);
+
+    const fetchGif = () => {
+        dispatch({ type: 'FETCH_GIF' })
+    }
 
     const dispatch = useDispatch();
 
-    const handleDelete = () => {
-
-        dispatch({
-            type: 'DELETE_GIF',
-            payload: gif.id
-        })
-    };
-
-
+    console.log(`GIFFFF`, gif);
     return (
         <>
             <p>FavoriteItem</p>
             <li>
-                {gif.name}
-                <img title={gif.title} src={gif.image_url} />
-                <button onClick={handleDelete}>Delete Gif</button>
+                <img src={gif?.image_url}/>
+                <button onClick={()=> dispatch({type:'DELETE_GIF', payload: gif.id})}>Delete Gif</button>
             </li>
         </>
     )

@@ -23,5 +23,5 @@ CREATE TABLE "favorites" (
 );
 
 -- Default Values
-INSERT INTO "favorites" ("name", "url")
+INSERT INTO "favorites" ("name", "image_url")
 VALUES ('Bill Is Funny', 'https://giphy.com/gifs/politics-bill-clinton-democrat-xrWNh6MHjO7HW');
