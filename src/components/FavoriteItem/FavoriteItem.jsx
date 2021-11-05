@@ -7,6 +7,16 @@ function FavoriteItem({ gif }) {
         fetchGif();
     }, []);
 
+    const handleDelete = () => {
+        //send off dispatch with idToDelete
+        dispatch({
+            type: 'DELETE_GIF',
+            payload: gif.id
+        })
+        //GET new DB
+        fetchGif();
+    }
+
     const fetchGif = () => {
         dispatch({ type: 'FETCH_GIF' })
     }
@@ -18,8 +28,8 @@ function FavoriteItem({ gif }) {
         <>
             <p>FavoriteItem</p>
             <li>
-                <img src={gif?.image_url}/>
-                <button onClick={()=> dispatch({type:'DELETE_GIF', payload: gif.id})}>Delete Gif</button>
+                <img src={gif?.image_url} />
+                <button onClick={handleDelete}>Delete Gif</button>
             </li>
         </>
     )
