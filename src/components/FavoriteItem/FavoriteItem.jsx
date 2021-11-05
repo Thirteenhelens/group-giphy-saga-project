@@ -1,7 +1,10 @@
 import { useDispatch } from "react-redux";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 
 function FavoriteItem({ gif }) {
+
+    const [categoryInput, setCategoryInput] = useState()
 
     useEffect(() => {
         fetchGif();
@@ -17,6 +20,10 @@ function FavoriteItem({ gif }) {
         fetchGif();
     }
 
+    const handleChange = (event) => {
+        setCategoryInput(event.target.value)
+    }
+
     const fetchGif = () => {
         dispatch({ type: 'FETCH_GIF' })
     }
@@ -26,11 +33,24 @@ function FavoriteItem({ gif }) {
     console.log(`GIFFFF`, gif);
     return (
         <>
-            <p>FavoriteItem</p>
-            <li>
-                <img src={gif?.image_url} />
-                <button onClick={handleDelete}>Delete Gif</button>
-            </li>
+
+            {gif ?
+                <li>
+                    <img src={gif?.image_url} />
+
+                    <select value={categoryInput} onChange={handleChange}>
+                        <option value={1}>Funny</option>
+                        <option value={2}>Cohort</option>
+                        <option value={3}>Cartoon</option>
+                        <option value={4}>*Nsfw*</option>
+                        <option value={5}>Meme</option>
+                    </select>
+                    <button onClick={() => dispatch({ type: 'CHANGE_CATEGORY', payload: { id: gif.id, categoryId: Number(categoryInput) } })}>Submit</button>
+                    <button onClick={handleDelete}>Delete Gif</button>
+                </li>
+                : ``}
+
+
         </>
     )
 }
