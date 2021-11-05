@@ -11,16 +11,21 @@ function App(props) {
     <Router>
       <div>
         <h1>Giiphy?</h1>
+
+        <Link className="link" to="/">Home</Link>
+        <Link className="link" to="/favorites">Fav Gifs!</Link>
+
         <Route exact path="/">
           <GiphyForm />
           <GiphyList />
-          <GiphyItem />
+       
         </Route>
 
         <Route path="/favorites">
           <FavoriteList />
           <FavoriteItem />
         </Route>
+        
       </div>
     </Router>
   );
