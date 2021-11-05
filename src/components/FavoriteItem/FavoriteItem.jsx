@@ -10,6 +10,16 @@ function FavoriteItem({ gif }) {
         fetchGif();
     }, []);
 
+    const handleDelete = () => {
+        //send off dispatch with idToDelete
+        dispatch({
+            type: 'DELETE_GIF',
+            payload: gif.id
+        })
+        //GET new DB
+        fetchGif();
+    }
+
     const fetchGif = () => {
         dispatch({ type: 'FETCH_GIF' })
     }
@@ -35,6 +45,7 @@ function FavoriteItem({ gif }) {
                     <option value={5}>Meme</option>
                 </select>
                 <button onClick={() => dispatch({type: 'CHANGE_CATEGORY', payload: {id: gif.id, categoryId: Number(categoryInput)}})}>Submit</button>
+                <button onClick={handleDelete}>Delete Gif</button>
             </li>
         </>
     )
