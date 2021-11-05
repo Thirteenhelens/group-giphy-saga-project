@@ -23,7 +23,7 @@ const gifReducer = (state = [], action) => {
     }
 } //end gifReducer
 
-const placeHolder= {
+const placeHolder = {
     url: "https://giphy.com/embed/cHMwfvqXeBszH2TohN/video"
 }
 
@@ -74,7 +74,10 @@ function* postGif(action) {
     try {
         axios.post('/api/favorite',
             action.payload)
-        yield put({ type: 'SET_GIF' })
+        yield put({
+            type: 'SET_GIF',
+            payload: action.payload
+        })
 
     } catch (error) {
         console.log('ERROR IN POST', error);
