@@ -13,9 +13,10 @@ import axios from 'axios'
 //reducer to hold the gifs in redux state,
 //not sure yet what we are going to need returned, or if we need other action.payloads
 //add as needed
-const gifReducer = (state = [], action) => {
+const gifReducer = (state = [{name: ``, image_url: ``}], action) => {
     switch (action.type) {
         case 'SET_GIF':
+            console.log(`this is payload`, action.payload);
             return action.payload
 
         default:
@@ -58,6 +59,8 @@ function* fetchFavGif() {
     try {
         const response = yield axios.get('/api/favorite');
         //connect the response.data to the gifReducer
+        console.log(response.data);
+
         yield put({
             type: 'SET_GIF',
             payload: response.data
@@ -92,7 +95,8 @@ function* postGif(action) {
 function* putCategoryGif(action) {
 
     try {
-        axios.put(`api/favorite/${action.payload}`)
+        axios.put(`api/favorite/${action.payload.id}`, 
+       { category_id: action.payload.categoryId})
         yield put({ type: 'SET_GIF' })
 
     } catch (error) {
