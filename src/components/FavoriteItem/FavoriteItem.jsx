@@ -18,9 +18,6 @@ function FavoriteItem({ gif }) {
         <>
             <p>FavoriteItem</p>
             <li>
-                {JSON.stringify(gif)}
-                <p>{gif?.id}</p>
-
                 <img src={gif?.image_url}/>
                 <button onClick={()=> dispatch({type:'DELETE_GIF', payload: gif.id})}>Delete Gif</button>
             </li>
