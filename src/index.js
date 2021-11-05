@@ -10,9 +10,7 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects'
 import axios from 'axios'
 
-//reducer to hold the gifs in redux state,
-//not sure yet what we are going to need returned, or if we need other action.payloads
-//add as needed
+//reducer to hold the favorited gifs in redux state,
 const gifReducer = (state = [{ name: ``, image_url: `` }], action) => {
     switch (action.type) {
         case 'SET_GIF':
@@ -93,7 +91,9 @@ function* postGif(action) {
 function* putCategoryGif(action) {
 
     try {
+        //make put request to gif item with id of action.payload.id
         axios.put(`api/favorite/${action.payload.id}`,
+            //send data of category_id
             { category_id: action.payload.categoryId })
         yield put({ type: 'FETCH_GIF' })
 
@@ -108,6 +108,7 @@ function* putCategoryGif(action) {
 function* deleteGif(action) {
 
     try {
+        //make delete request to gif item with id of action.payload
         axios.delete(`api/favorite/${action.payload}`)
         yield put({ type: 'SET_GIF' })
     } catch (error) {
@@ -116,6 +117,7 @@ function* deleteGif(action) {
     }
 }//end deleteGif
 
+//root saga
 function* rootSaga() {
     yield takeEvery('ADD_GIF', postGif);
     yield takeEvery('DELETE_GIF', deleteGif);
@@ -126,7 +128,7 @@ function* rootSaga() {
 
 const sagaMiddleware = createSagaMiddleware();
 
-
+//store to hold reducers
 const storeInstance = createStore(
     combineReducers({
         gifReducer,

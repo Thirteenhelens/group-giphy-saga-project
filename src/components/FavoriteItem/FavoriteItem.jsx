@@ -11,12 +11,16 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 function FavoriteItem({ gif }) {
   const dispatch = useDispatch();
+
+  //creating local state to store category input by user
   const [categoryInput, setCategoryInput] = useState();
 
+  //initial render of favorite gifs dom
   useEffect(() => {
     fetchGif();
   }, []);
 
+  //GET dispatch
   const fetchGif = () => {
     dispatch({ type: "FETCH_GIF" });
   };
@@ -31,6 +35,7 @@ function FavoriteItem({ gif }) {
     fetchGif();
   };
 
+  //set category input to the value selected in dropdown menu
   const handleChange = (event) => {
     setCategoryInput(event.target.value);
   };
@@ -49,7 +54,7 @@ function FavoriteItem({ gif }) {
             <IconButton
               size="small"
               aria-label="delete"
-              onClick={() => dispatch({ type: "DELETE_GIF", payload: gif.id })}
+              onClick={() => handleDelete()}
             >
               <DeleteTwoToneIcon />
             </IconButton>

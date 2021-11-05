@@ -11,10 +11,12 @@ function GiphyForm() {
   const dispatch = useDispatch();
   const [searchGif, setSearchGif] = useState("");
 
+  //setting search gif to value that is inputted by user
   const handleChange = (e) => {
     setSearchGif(e.target.value);
   };
 
+  //dispatching search gif to get from api with searchGif as payload
   const handleSearch = (e) => {
     e.preventDefault();
     console.log(`Searching`);

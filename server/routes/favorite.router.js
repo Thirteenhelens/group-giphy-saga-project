@@ -43,7 +43,11 @@ router.post('/', (req, res) => {
 
 // update given favorite with a category id
 router.put('/:favId', (req, res) => {
+  //grabbing gif item id from axios.put url request
   let favId = req.params.favId
+
+  //grabbing category_id to be assigned/changed in the data of axios.put request
+  let category_id = req.body.category_id
 
   let queryText = `
   UPDATE "favorites" 
@@ -51,7 +55,6 @@ router.put('/:favId', (req, res) => {
   WHERE "id" = $2;
   `;
 
-  let category_id = req.body.category_id
 
   let values = [category_id, favId]
 
