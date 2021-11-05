@@ -39,7 +39,9 @@ const searchGifReducer = (state = [], action) => {
 
 function* fetchSearchGif(action) {
     try {
-        const response = yield axios.get('/api/search', { search: action.payload });
+        let search = action.payload
+
+        const response = yield axios.get(`/api/search/${search}`);
         yield put({
             type: 'SEARCH_FOR_GIF',
             payload: response.data.data

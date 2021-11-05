@@ -5,9 +5,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
+router.get('/:search', (req, res) => {
 
-    let search = req.body;
+    let search = req.params.search;
 
     console.log('SEARCH --> ', search);
 
