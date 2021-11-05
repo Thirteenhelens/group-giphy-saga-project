@@ -5,13 +5,13 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
+router.get('/:search', (req, res) => {
 
-    let search = req.body;
+    let search = req.params.search;
 
-    console.log('shit -> ', search);
+    console.log('SEARCH --> ', search);
 
-    axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${search}&rating=pg-13`)
+    axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${search}&rating=pg-13&limit=25`)
         .then((response) => {
             console.log(`API get res ->`, response.data);
             res.send(response.data);

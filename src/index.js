@@ -24,7 +24,7 @@ const gifReducer = (state = [{name: ``, image_url: ``}], action) => {
     }
 } //end gifReducer
 
-const placeHolder= {
+const placeHolder = {
     url: "https://giphy.com/embed/cHMwfvqXeBszH2TohN/video"
 }
 
@@ -40,7 +40,9 @@ const searchGifReducer = (state = [], action) => {
 
 function* fetchSearchGif(action) {
     try {
-        const response = yield axios.get('/api/search', { search: action.payload });
+        let search = action.payload
+
+        const response = yield axios.get(`/api/search/${search}`);
         yield put({
             type: 'SEARCH_FOR_GIF',
             payload: response.data.data
@@ -77,7 +79,10 @@ function* postGif(action) {
     try {
         axios.post('/api/favorite',
             action.payload)
-        yield put({ type: 'SET_GIF' })
+        yield put({
+            type: 'SET_GIF',
+            payload: action.payload
+        })
 
     } catch (error) {
         console.log('ERROR IN POST', error);

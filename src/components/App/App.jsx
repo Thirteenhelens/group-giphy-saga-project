@@ -18,7 +18,6 @@ function App(props) {
         <Route exact path="/">
           <GiphyForm />
           <GiphyList />
-       
         </Route>
 
         <Route path="/favorites">
